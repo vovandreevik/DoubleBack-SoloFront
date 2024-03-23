@@ -1,7 +1,4 @@
-from flask import Flask, jsonify
 import json
-
-app = Flask(__name__)
 
 class Component:
     def __init__(self, type, **kwargs):
@@ -44,17 +41,17 @@ class DataTemplate:
     def add_news(self, theme, image, title, text):
         self.body.append(News(theme, image, title, text).__dict__)
 
-@app.route('/api/message', methods=['GET'])
-def get_message():
-    # Создаем экземпляр DataTemplate и добавляем компоненты и новости
-    message = DataTemplate()
-    message.add_component("header", Logo("http://example.com/logo.png", "http://example.com", "left"))
-    message.add_component("header", Search("http://example.com/search.png", "http://example.com/search"))
-    message.add_component("navigation", NavButton("Home", "http://example.com"))
-    message.add_component("footer", Footer("Copyright 2022"))
+# Пример использования классов
+data_template = DataTemplate()
 
-    # Добавляем новости в раздел body
-    news_info = [
+# Добавляем компоненты
+data_template.add_component("header", Logo("http://example.com/logo.png", "http://example.com", "left"))
+data_template.add_component("header", Search("http://example.com/search.png", "http://example.com/search"))
+data_template.add_component("navigation", NavButton("Home", "http://example.com"))
+data_template.add_component("footer", Footer("Copyright 2022"))
+
+# Добавляем новости в раздел body
+news_info = [
     ("Спорт", "1.jpg", "Футбол",
      "Сборная России по футболу одержала победу над сборной Сербии со счетом 2:1 в товарищеском матче, который состоялся 21 марта в Москве. Голы за россиян забили Александр Головин и Артем Дзюба"),
     ("Спорт", "2.jpg", "Хоккей",
@@ -93,11 +90,11 @@ def get_message():
      "В России создаются новые центры опережающей подготовки кадров."),
 ]
 
-    for news in news_info:
-        message.add_news(*news)
+for news in news_info:
+    data_template.add_news(*news)
 
-    # Возвращаем сообщение в формате JSON
-    return jsonify(message.__dict__)
+# Преобразуем шаблон в JSON
+json_data = data_template.to_json()
 
-if __name__ == '__main__':
-    app.run(port=5001)
+# Выводим JSON
+print(json_data)
