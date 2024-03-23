@@ -6,5 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 let div = document.createElement('div'); // Создаем div
+div.id = 'test'
 div.innerHTML = '<h1>Привет, мир!</h1>'; // Вставляем текст в div
 document.body.appendChild(div); // Добавляем div на страницу
