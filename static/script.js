@@ -1,11 +1,34 @@
+let message
+let container = document.createElement("div");
+container.className = "container";
+
 document.addEventListener('DOMContentLoaded', function () {
-    var element = document.getElementById('hello');
-    var message = element.getAttribute('data-message');
-    element.innerHTML = message;
+    let element = document.getElementById('python');
+    message = element.getAttribute('data-message');
+    console.log(message); // Теперь вы должны увидеть значение `data-message` в консоли
+
+    createHTML(message);
 });
 
+function createHTML(message) {
+    y
+    let logoSRC = 'https://idyllic-donut-3ece02.netlify.app/logo.svg';
+    createHeader(logoSRC);
+}
 
-let div = document.createElement('div'); // Создаем div
-div.id = 'test'
-div.innerHTML = '<h1>Привет, мир!</h1>'; // Вставляем текст в div
-document.body.appendChild(div); // Добавляем div на страницу
+function createHeader(logoSRC) {
+    let header = document.createElement("header");
+    header.className = "header";
+    header.appendChild(container);
+
+    let logo = document.createElement("img");
+    logo.setAttribute("src", logoSRC);
+    logo.className = "logo";
+    header.appendChild(logo);
+
+    document.body.appendChild(header);
+}
+
+function createNavigation(navigationItems){
+
+}
