@@ -51,9 +51,9 @@ class DataTemplate:
 
 
 #DATA
-header_logo = "https://idyllic-donut-3ece02.netlify.app/logo.png"
+header_logo = "https://idyllic-donut-3ece02.netlify.app/logo.svg"
 
-footer_text = "https://idyllic-donut-3ece02.netlify.app/footer.png"
+footer_text = "https://idyllic-donut-3ece02.netlify.app/footer.svg"
 
 nav_buttons = [
     ("Главная"),
