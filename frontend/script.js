@@ -1,6 +1,6 @@
 var buttonElement = document.createElement("button");
 buttonElement.setAttribute("id", "backendButton");
-buttonElement.className = "header container";
+buttonElement.className = "Button";
 buttonElement.textContent = "Бэкенд 1";
 
 // Добавление кнопки в DOM
@@ -180,16 +180,6 @@ function createBody(message) {
     }
     document.body.appendChild(news);
 }
-
-
-// function createFooter(message) {
-//     let footer = document.createElement("footer");
-//     footer.className = "footer";
-//     footer.appendChild(container);
-//     footer.textContent = "1234"
-//     document.body.appendChild(footer);
-
-// }
 
 
 //request for backend
