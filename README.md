@@ -1,4 +1,78 @@
-json
+
+# DayBday Web Application
+
+DayBday is a web application that provides users with news articles grouped by different categories such as sports, politics, culture, tourism, and more.
+
+Users can navigate through these categories using the navigation bar and read articles of interest to them.
+
+## Features
+- Dynamic Content: The content on the website is dynamically generated based on user interactions and selections.
+- Navigation: Users can navigate through different sections of the website using the navigation bar.
+- Real-time Updates: Users can receive real-time updates by clicking on the "Backend" button, which switches between two backend servers.
+- Responsive Design: The website is designed to be responsive and compatible with various devices and screen sizes.
+
+## Technologies Used
+- Frontend: HTML, CSS, JavaScript
+- Backend: Python Flask framework
+- Data Serialization: JSON
+- Cross-Origin Resource Sharing (CORS): Implemented using Flask-CORS extension to allow communication between frontend and backend on different ports.
+- Local Storage: Used to store and retrieve the current backend server port for real-time updates.
+
+## Backend Servers
+
+### Backend Server 1
+
+- **Description**: This backend server serves as an API endpoint for updating and retrieving page structure data.
+- **Routes**:
+  - `/api/update`: POST request to update the title of the page structure.
+  - `/api/main`: GET request to retrieve the page structure based on the title.
+- **Components**:
+  - Logo
+  - NavButton
+  - News
+  - Footer
+
+### Backend Server 2
+
+- **Description**: This backend server serves as an API endpoint for retrieving page structure data.
+- **Routes**:
+  - `/api/main`: GET request to retrieve the page structure data.
+- **Components**:
+  - Logo
+  - NavButton
+  - MovieSession
+
+## Frontend Application
+
+- **Description**: The frontend application consumes APIs provided by the backend servers to render the user interface.
+  
+- **Features**:
+  - Displays logos, navigation buttons, news articles, movie sessions, and footers based on the data received from the backend servers.
+  - Allows users to update the page structure by sending requests to the backend servers.
+  
+## Getting Started
+To run the DayBday web application locally, follow these steps:
+
+- Clone this repository to your local machine.
+- Install Python if you haven't already.
+- Install Flask and Flask-CORS using pip:
+```
+pip install Flask Flask-CORS
+```
+- Navigate to the project directory in your terminal.
+- Run the Flask application:
+```
+python app.py
+```
+- Open your web browser and go to `http://localhost:5001 to view the application.
+
+## How to Use
+- Upon opening the application, you will see the main page with news articles from various categories.
+- Use the navigation bar to filter news articles by category.
+- Click on the "Backend" button to switch between two backend servers for real-time updates.
+
+
+## Example of json
 ```
 {
     "header": [
