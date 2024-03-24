@@ -1,5 +1,80 @@
+var buttonElement = document.createElement("button");
+buttonElement.setAttribute("id", "backendButton");
+buttonElement.className = "header container";
+buttonElement.textContent = "Бэкенд 1";
+
+// Добавление кнопки в DOM
+document.body.appendChild(buttonElement);
+
+// Функция для сохранения состояния кнопки в localStorage
+function saveButtonState(port) {
+    localStorage.setItem('currentBackendPort', port);
+}
+
+// Функция для загрузки состояния кнопки из localStorage
+function loadButtonState() {
+    var savedPort = localStorage.getItem('currentBackendPort');
+    return savedPort ? parseInt(savedPort, 10) : 5001; // По умолчанию 5001
+}
+
+// Загружаем сохраненное состояние кнопки
+var currentBackendPort = loadButtonState();
+
+// Функция, которая будет вызываться при нажатии на кнопку
+function buttonClickHandler() {
+    // Переключаем порт
+    currentBackendPort = currentBackendPort === 5001 ? 5002 : 5001;
+    // Обновляем текст кнопки
+    buttonElement.textContent = currentBackendPort === 5001 ? "Бэкенд 1" : "Бэкенд 2";
+
+    // Сохраняем состояние кнопки
+    saveButtonState(currentBackendPort);
+
+    // Отправляем запрос на текущий URL
+    fetch(`http://localhost:${currentBackendPort}/api/main`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Data received from:", `http://localhost:${currentBackendPort}/api/main`);
+            console.log(data);
+            // здесь можно обработать полученные данные
+            // Assuming this function exists and is capable of handling the data
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error when receiving data:', error);
+        });
+}
+
+// Добавляем обработчик события на нажатие кнопки
+buttonElement.addEventListener('click', buttonClickHandler);
+
+// Функция для получения начальных данных
 function getInitialSiteMap() {
-    fetch('http://localhost:5001/api/main')
+    fetch(`http://localhost:${currentBackendPort}/api/main`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Initial data received from:", `http://localhost:${currentBackendPort}/api/main`);
+            console.log(data);
+            // здесь можно обработать полученные данные
+            // Assuming this function exists and is capable of handling the data
+            createHTML(data);
+        })
+        .catch(error => {
+            console.error('Error when receiving the initial site map:', error);
+        });
+}
+function getInitialSiteMap() {
+    fetch(`http://localhost:${currentBackendPort}/api/main`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -123,7 +198,7 @@ function handleLinkClick(event) {
     const requestData = { id: event.target.id };
 
     // Отправляем POST-запрос
-    fetch('http://localhost:5001/api/update', {
+    fetch(`http://localhost:${currentBackendPort}/api/update`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
