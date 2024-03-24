@@ -9,6 +9,7 @@ function getInitialSiteMap() {
         .then(data => {
             // create html from data
             console.log("Life is good");
+            console.log(data);
             createHTML(data);
         })
         .catch(error => {
@@ -140,8 +141,6 @@ function handleLinkClick(event) {
         });
     console.log('ID ссылки:', event.target.id);
 }
-
-
 
 //all
 let container = document.createElement("div");
