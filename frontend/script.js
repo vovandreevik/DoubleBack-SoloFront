@@ -116,13 +116,14 @@ function createBody(message) {
 
 // }
 
+
 //request for backend
 function handleLinkClick(event) {
     // Создаем объект для отправки
     const requestData = { id: event.target.id };
 
     // Отправляем POST-запрос
-    fetch('http://localhost:5001/api/main', {
+    fetch('http://localhost:5001/api/update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -135,10 +136,14 @@ function handleLinkClick(event) {
             }
             return response.json();
         })
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data);
+            window.location.reload(); // Перезагружаем страницу после успешного выполнения запроса
+        })
         .catch((error) => {
             console.error('Ошибка:', error);
         });
+
     console.log('ID ссылки:', event.target.id);
 }
 
@@ -147,3 +152,6 @@ let container = document.createElement("div");
 container.className = "container";
 window.onload = getInitialSiteMap;
 
+$.ajaxSetup({
+    cache: false
+});

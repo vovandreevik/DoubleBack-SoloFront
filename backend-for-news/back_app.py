@@ -1,9 +1,11 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 import json
 
+
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})  # Allow requests from any origin
+
 
 class Component:
     def __init__(self, type, **kwargs):
@@ -56,16 +58,16 @@ header_logo = "https://idyllic-donut-3ece02.netlify.app/logo.svg"
 footer_text = "https://idyllic-donut-3ece02.netlify.app/footer.svg"
 
 nav_buttons = [
-    ("Главная"),
-    ("Спорт"),
-    ("Россия"),
-    ("Санкт-Петербург"),
-    ("Туризм"),
-    ("Образование"),
+    "Главная",
+    "Спорт",
+    "Россия",
+    "Санкт-Петербург",
+    "Туризм",
+    "Образование",
 ]
 
-news_info = [
-         ("Спорт", "https://idyllic-donut-3ece02.netlify.app/1.jpg", "Футбол", "Сборная России по футболу одержала победу над сборной Сербии со счетом 2:1 в товарищеском матче, который состоялся 21 марта в Москве. Голы за россиян забили Александр Головин и Артем Дзюба"),
+news_info_backup = [
+     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/1.jpg", "Футбол", "Сборная России по футболу одержала победу над сборной Сербии со счетом 2:1 в товарищеском матче, который состоялся 21 марта в Москве. Голы за россиян забили Александр Головин и Артем Дзюба"),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/2.jpg", "Хоккей", "ЦСКА одержал победу над 'Автомобилистом' со счетом 3:2 в третьем матче серии плей-офф КХЛ. Таким образом, петербургский клуб повел в серии со счетом 2-1."),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/3.jpg", "Баскетбол", "ЦСКА обыграл 'Зенит' со счетом 78:75 в пятом матче финальной серии Единой лиги ВТБ. Таким образом, ЦСКА стал чемпионом Единой лиги ВТБ в 12-й раз."),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/4.jpg", "Биатлон", "Эдуард Латыпов выиграл золотую медаль в масс-старте на этапе Кубка мира в Осло. Вторым стал норвежец Йоханнес Бё, третьим - француз Кентен Фийон-Майе."),
@@ -77,6 +79,7 @@ news_info = [
     
     ("Санкт-Петербург", "https://idyllic-donut-3ece02.netlify.app/10.jpg", "Туризм", "Санкт-Петербург вошел в пятерку самых популярных туристических направлений в мире."),
     ("Санкт-Петербург", "https://idyllic-donut-3ece02.netlify.app/11.jpg", "Экономика", "В Санкт-Петербурге открылся новый завод по производству электромобилей."),
+
     ("Санкт-Петербург", "https://idyllic-donut-3ece02.netlify.app/12.jpg", "Образование", "В Санкт-Петербургском государственном университете открылся новый факультет - факультет искусственного интеллекта."),
     ("Туризм", "https://idyllic-donut-3ece02.netlify.app/13.png", "Внутренний туризм", "В 2023 году число туристов, посетивших Россию, выросло на 10%."),
     ("Туризм", "https://idyllic-donut-3ece02.netlify.app/14.jpg", "Международный туризм", "Россия вошла в десятку самых популярных туристических направлений для туристов из Китая."),
@@ -112,27 +115,30 @@ def generate_message(header_logo, nav_buttons, news_info, footer_text):
     return message
 
 
+
+title = None
+
+@app.route('/api/update', methods=['POST'])
+def update_page_structure():
+    data = request.get_json()
+    global title
+    title = data['id']
+    return jsonify({'message': 'Title updated successfully'}), 200
+
 @app.route('/api/main')
 def page():
-    # global title
-    # if title.lower() == 'главная':
-    #     # Отображаем все элементы
-    #     filtered_components = body_components_backup
-    # elif title.lower() == 'добавить элемент':
-    #     return jsonify({'error': 'Добавление элементов не поддерживается'}), 400
-    
-    # else:
-    #     filtered_components = [component for component in body_components_backup if component.title.lower() == title.lower()]
+    if title is None or title.lower() == 'главная':
+         # Отображаем все элементы
+         filtered_components = news_info_backup
+    elif title.lower() == 'добавить элемент':
+         return jsonify({'error': 'Добавление элементов не поддерживается'}), 400
+    else:
+         filtered_components = [component for component in news_info_backup if component[0].lower() == title.lower()]
     
     # Генерируем сообщение с отфильтрованными компонентами
-    message = generate_message(header_logo, nav_buttons, news_info, footer_text)
+    message = generate_message(header_logo, nav_buttons, filtered_components, footer_text)
     return jsonify(message.to_json())
 
-    # @app.route('/api/update', methods=['POST'])
-    # def update_page_structure():
-    #     data = request.get_json()
-    #     global title
-    #     title = data['title']
     
 if __name__ == '__main__':
     app.run(port=5001)

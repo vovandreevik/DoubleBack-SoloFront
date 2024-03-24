@@ -41,7 +41,6 @@ class DataTemplate:
     def to_json(self):
         ordered_sections = {
             "header": [],
-            "navigation": [],
             "body": [],
             "footer": []
         }
