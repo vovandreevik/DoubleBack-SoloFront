@@ -54,6 +54,7 @@ header .container, .navigation .container {
 
 .navigation ul li a:hover {
     background-color: #ccb1fc;
+    cursor: default;
 }
 
 /* news */
@@ -81,13 +82,14 @@ figcaption {
 }
 
 .news-item img {
-    max-width: 30%;
+    width: 30%;
+    min-width: 29%;
     height: auto;
     border-radius: 5px;
 }
 
 .news-item h2 {
-    margin-top: 10px;
+    margin-top: 7px;
     text-align: center;
 }
 
