@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 
@@ -49,30 +49,22 @@ class DataTemplate:
                 ordered_sections[section].append(component)
         return json.dumps(ordered_sections, indent=4, ensure_ascii=False)
 
-@app.route('/api/main')
-def get_message():
-    # Создаем экземпляр DataTemplate и добавляем компоненты
-    message = DataTemplate()
-    message.add_component("header", Logo("https://idyllic-donut-3ece02.netlify.app/logo.svg"))
-    
-    nav_buttons = [
+
+#DATA
+header_logo = "https://idyllic-donut-3ece02.netlify.app/logo.png"
+
+footer_text = "https://idyllic-donut-3ece02.netlify.app/footer.png"
+
+nav_buttons = [
     ("Главная"),
     ("Спорт"),
     ("Россия"),
     ("Санкт-Петербург"),
     ("Туризм"),
     ("Образование"),
-    ]
+]
 
-    for title in nav_buttons:
-        nav_button = NavButton(title)
-        message.add_component("navigation", nav_button)
-
-    message.add_component("footer", Footer("Copyright 2022"))
-
-
-    # Добавляем новости в раздел body
-    news_info = [
+news_info = [
          ("Спорт", "https://idyllic-donut-3ece02.netlify.app/1.jpg", "Футбол", "Сборная России по футболу одержала победу над сборной Сербии со счетом 2:1 в товарищеском матче, который состоялся 21 марта в Москве. Голы за россиян забили Александр Головин и Артем Дзюба"),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/2.jpg", "Хоккей", "ЦСКА одержал победу над 'Автомобилистом' со счетом 3:2 в третьем матче серии плей-офф КХЛ. Таким образом, петербургский клуб повел в серии со счетом 2-1."),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/3.jpg", "Баскетбол", "ЦСКА обыграл 'Зенит' со счетом 78:75 в пятом матче финальной серии Единой лиги ВТБ. Таким образом, ЦСКА стал чемпионом Единой лиги ВТБ в 12-й раз."),
@@ -94,16 +86,53 @@ def get_message():
     ("Образование", "https://idyllic-donut-3ece02.netlify.app/18.jpg", "Высшее образование", "В России увеличивается число бюджетных мест в вузах."),
     ("Образование", "https://idyllic-donut-3ece02.netlify.app/19.png", "Дополнительное образование", "В России набирают популярность онлайн-курсы."),
     ("Образование", "https://idyllic-donut-3ece02.netlify.app/20.jpg", "Профессиональное образование", "В России создаются новые центры опережающей подготовки кадров."),
-    ]
+]
+#END DATA
 
+def generate_message(header_logo, nav_buttons, news_info, footer_text):
+    # Создаем экземпляр DataTemplate и добавляем компоненты
+    message = DataTemplate()
+    
+    # Добавляем компоненты header
+    message.add_component("header", Logo(header_logo))
+    
+    # Добавляем кнопки навигации
+    for title in nav_buttons:
+        nav_button = NavButton(title)
+        message.add_component("navigation", nav_button)
+
+    # Добавляем компоненты body
     for theme, image, title, text in news_info:
         news_article = News(theme, image, title, text)
         message.add_component("body", news_article)
 
+    # Добавляем footer
+    message.add_component("footer", Footer(footer_text))
+     
+    return message
 
-    # Возвращаем JSON-ответ
+
+@app.route('/api/main')
+def page():
+    # global title
+    # if title.lower() == 'главная':
+    #     # Отображаем все элементы
+    #     filtered_components = body_components_backup
+    # elif title.lower() == 'добавить элемент':
+    #     return jsonify({'error': 'Добавление элементов не поддерживается'}), 400
+    
+    # else:
+    #     filtered_components = [component for component in body_components_backup if component.title.lower() == title.lower()]
+    
+    # Генерируем сообщение с отфильтрованными компонентами
+    message = generate_message(header_logo, nav_buttons, news_info, footer_text)
     return jsonify(message.to_json())
 
-
+    # @app.route('/api/update', methods=['POST'])
+    # def update_page_structure():
+    #     data = request.get_json()
+    #     global title
+    #     title = data['title']
+    
 if __name__ == '__main__':
     app.run(port=5001)
