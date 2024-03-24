@@ -64,7 +64,7 @@ pip install Flask Flask-CORS
 ```
 python app.py
 ```
-- Open your web browser and go to `http://localhost:5001 to view the application.
+- Open your web browser and go to `http://localhost:5001 to view the application`.
 
 ## How to Use
 - Upon opening the application, you will see the main page with news articles from various categories.
