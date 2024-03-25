@@ -1,9 +1,7 @@
 
 # DayBday Web Application
 
-DayBday is a web application that provides users with news articles grouped by different categories such as sports, politics, culture, tourism, and more.
-
-Users can navigate through these categories using the navigation bar and read articles of interest to them.
+DayBday is a web application that provides users with news articles grouped by different categories or movie posters.
 
 ## Features
 - Dynamic Content: The content on the website is dynamically generated based on user interactions and selections.
