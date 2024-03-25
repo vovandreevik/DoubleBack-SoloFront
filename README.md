@@ -3,7 +3,7 @@
 
 DayBday is a web application that provides users with news articles grouped by different categories or movie posters.
 
-_Developed together with [gaminv](https://github.com/gaminv) and [Ivan](https://github.com/raikevichI)_
+_Developed together with [gaminv](https://github.com/gaminv) and [raikevichI](https://github.com/raikevichI)_
 
 ## Features
 - Dynamic Content: The content on the website is dynamically generated based on user interactions and selections.
