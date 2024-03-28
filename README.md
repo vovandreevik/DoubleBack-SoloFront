@@ -30,12 +30,12 @@ _Developed together with [gaminv](https://github.com/gaminv) and [raikevichI](ht
   - Logo
   - NavButton
   - News
-  - Footer
 
 ### Backend Server 2
 
 - **Description**: This backend server serves as an API endpoint for retrieving page structure data.
 - **Routes**:
+   - `/api/update`: POST request to update the title of the page structure.
   - `/api/main`: GET request to retrieve the page structure data.
 - **Components**:
   - Logo
