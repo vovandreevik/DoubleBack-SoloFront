@@ -78,8 +78,12 @@ python app.py
 2. First backend. Saint Petersburg
 ![image](https://github.com/vovandreevik/DoubleBack-SoloFront/assets/116523390/f978587e-9e35-4364-8eb3-1b6a08cf586d)
 
-3. Second backend
-![image](https://github.com/vovandreevik/DoubleBack-SoloFront/assets/116523390/4456161c-1410-4441-85c2-70ee0ac2d723)
+3. Second backend. Main
+![image](https://github.com/vovandreevik/DoubleBack-SoloFront/assets/116523390/3de87719-5850-41a6-9c6f-250aa02f3dd8)
+
+4. Second backend. Fiction
+![image](https://github.com/vovandreevik/DoubleBack-SoloFront/assets/116523390/65ba26dc-15d0-4ebf-a895-2e5b6325fc15)
+
 
 ## Example of json
 ```
