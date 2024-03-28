@@ -4,7 +4,7 @@ import json
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})  # Allow requests from any origin
+CORS(app, resources={r"/api/*": {"origins": "*"}}) 
 
 
 class Component:
@@ -67,7 +67,7 @@ nav_buttons = [
 ]
 
 news_info_backup = [
-     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/1.jpg", "Футбол", "Сборная России по футболу одержала победу над сборной Сербии со счетом 2:1 в товарищеском матче, который состоялся 21 марта в Москве. Голы за россиян забили Александр Головин и Артем Дзюба"),
+    ("Спорт", "https://idyllic-donut-3ece02.netlify.app/1.jpg", "Футбол", "Сборная России по футболу одержала победу над сборной Сербии со счетом 2:1 в товарищеском матче, который состоялся 21 марта в Москве. Голы за россиян забили Александр Головин и Артем Дзюба"),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/2.jpg", "Хоккей", "ЦСКА одержал победу над 'Автомобилистом' со счетом 3:2 в третьем матче серии плей-офф КХЛ. Таким образом, петербургский клуб повел в серии со счетом 2-1."),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/3.jpg", "Баскетбол", "ЦСКА обыграл 'Зенит' со счетом 78:75 в пятом матче финальной серии Единой лиги ВТБ. Таким образом, ЦСКА стал чемпионом Единой лиги ВТБ в 12-й раз."),
     ("Спорт", "https://idyllic-donut-3ece02.netlify.app/4.jpg", "Биатлон", "Эдуард Латыпов выиграл золотую медаль в масс-старте на этапе Кубка мира в Осло. Вторым стал норвежец Йоханнес Бё, третьим - француз Кентен Фийон-Майе."),
@@ -92,6 +92,7 @@ news_info_backup = [
 ]
 #END DATA
 
+
 def generate_message(header_logo, nav_buttons, news_info, footer_text):
     message = DataTemplate()
     message.add_component("header", Logo(header_logo))
@@ -103,12 +104,10 @@ def generate_message(header_logo, nav_buttons, news_info, footer_text):
     for theme, image, title, text in news_info:
         news_article = News(theme, image, title, text)
         message.add_component("body", news_article)
-        
+
     message.add_component("footer", Footer(footer_text))
      
     return message
-
-
 
 title = None
 
@@ -122,14 +121,12 @@ def update_page_structure():
 @app.route('/api/main')
 def page():
     if title is None or title.lower() == 'главная':
-         # Отображаем все элементы
-         filtered_components = news_info_backup
+        filtered_components = news_info_backup
     elif title.lower() == 'добавить элемент':
-         return jsonify({'error': 'Добавление элементов не поддерживается'}), 400
+        return jsonify({'error': 'Добавление элементов не поддерживается'}), 400
     else:
-         filtered_components = [component for component in news_info_backup if component[0].lower() == title.lower()]
+        filtered_components = [component for component in news_info_backup if component[0].lower() == title.lower()]
     
-    # Генерируем сообщение с отфильтрованными компонентами
     message = generate_message(header_logo, nav_buttons, filtered_components, footer_text)
     return jsonify(message.to_json())
 
