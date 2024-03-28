@@ -93,23 +93,17 @@ news_info_backup = [
 #END DATA
 
 def generate_message(header_logo, nav_buttons, news_info, footer_text):
-    # Создаем экземпляр DataTemplate и добавляем компоненты
     message = DataTemplate()
-    
-    # Добавляем компоненты header
     message.add_component("header", Logo(header_logo))
     
-    # Добавляем кнопки навигации
     for title in nav_buttons:
         nav_button = NavButton(title)
         message.add_component("navigation", nav_button)
 
-    # Добавляем компоненты body
     for theme, image, title, text in news_info:
         news_article = News(theme, image, title, text)
         message.add_component("body", news_article)
-
-    # Добавляем footer
+        
     message.add_component("footer", Footer(footer_text))
      
     return message

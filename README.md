@@ -71,6 +71,15 @@ python app.py
 - Use the navigation bar to filter news articles by category.
 - Click on the "Backend" button to switch between two backend servers for real-time updates.
 
+## Pictures
+1. First backend. Main
+![image](https://github.com/vovandreevik/DoubleBack-SoloFront/assets/116523390/ddec8adc-cab6-406d-a921-ec000e7ae6e8)
+
+2. First backend. Saint Petersburg
+![image](https://github.com/vovandreevik/DoubleBack-SoloFront/assets/116523390/f978587e-9e35-4364-8eb3-1b6a08cf586d)
+
+3. Second backend
+![image](https://github.com/vovandreevik/DoubleBack-SoloFront/assets/116523390/4456161c-1410-4441-85c2-70ee0ac2d723)
 
 ## Example of json
 ```
