@@ -9,7 +9,6 @@ _Developed together with [gaminv](https://github.com/gaminv) and [raikevichI](ht
 - Dynamic Content: The content on the website is dynamically generated based on user interactions and selections.
 - Navigation: Users can navigate through different sections of the website using the navigation bar.
 - Real-time Updates: Users can receive real-time updates by clicking on the "Backend" button, which switches between two backend servers.
-- Responsive Design: The website is designed to be responsive and compatible with various devices and screen sizes.
 
 ## Technologies Used
 - Frontend: HTML, CSS, JavaScript
